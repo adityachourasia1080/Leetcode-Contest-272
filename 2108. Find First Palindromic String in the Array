@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string firstPalindrome(vector<string>& words) {
+        for (string str: words)
+        {
+            int i=0,j=str.length()-1;
+            bool notpal=true;
+            while(i<j)
+            {
+                if (str[i]==str[j])
+                {
+                    i++;
+                    j--;
+                }
+                else  
+                {
+                    notpal=false;
+                    break;
+                }
+            }
+            if (notpal)   return str;
+            
+        }
+        return "";
+        
+    }
+};
