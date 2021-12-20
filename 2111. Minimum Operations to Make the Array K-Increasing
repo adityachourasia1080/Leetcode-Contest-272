@@ -1,0 +1,61 @@
+class Solution {
+public:
+    int bs( vector<int>arr,int val)
+    {
+        int l=0,h=arr.size()-1;
+        int ans;
+        while(l<=h)
+        {
+            int mid= l+(h-l)/2;
+            if (arr[mid]<=val)
+            {
+                l=mid+1;
+            }
+            else 
+            {
+                ans=mid;
+                h=mid-1;
+            }
+           
+        }
+        return ans;
+    }
+    int LIS (vector<int> temp)
+    {
+        vector<int> ans;
+        for (int i=0;i<temp.size();i++)
+        {
+            if (ans.size()==0) ans.push_back(temp[i]);
+            else if (ans[ans.size()-1]<=temp[i]) 
+            ans.push_back(temp[i]);
+            else
+            {
+                int index= bs( ans,temp[i]);
+                ans[index]= temp[i];
+            }
+        }
+        return ans.size();
+    }
+    int kIncreasing(vector<int>& arr, int k) {
+        vector<vector<int>> v;
+        for (int i=0;i<k;i++)
+        {
+            vector<int>temp;
+            int j=i;
+            while(j<arr.size())
+            {
+                temp.push_back(arr[j]);
+                j=j+k;
+            }
+            v.push_back(temp);
+        }
+        int ans=0;
+        for (int i=0;i<v.size();i++)
+        {
+            int a= LIS(v[i]);
+            ans+= v[i].size()-a;
+        }
+        return ans;
+        
+    }
+};
